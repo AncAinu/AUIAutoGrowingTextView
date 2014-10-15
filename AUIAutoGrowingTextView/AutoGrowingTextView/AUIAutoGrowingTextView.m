@@ -74,6 +74,7 @@
     }
 	[UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
 		self.heightConstraint.constant = intrinsicSize.height;
+		[self.superview layoutIfNeeded];
 		[self layoutIfNeeded];
 	} completion:nil];
 }

@@ -16,22 +16,22 @@
 
 @implementation AUIAutoGrowingTextView
 
--(id) initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self commonInit];
+- (instancetype)init {
+	return [self initWithFrame:CGRectZero];
+}
+
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self findHeightConstraint];
     }
     return self;
 }
 
--(void) awakeFromNib
-{
-    [self commonInit];    
+- (void)awakeFromNib {
+    [self findHeightConstraint];
 }
 
--(void) commonInit
-{
+- (void)findHeightConstraint {
     // If we are using auto layouts, than get a handler to the height constraint.
     for (NSLayoutConstraint *constraint in self.constraints) {
         if (constraint.firstAttribute == NSLayoutAttributeHeight) {
@@ -44,8 +44,7 @@
     }
 }
 
-- (void) layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
     
     if (self.heightConstraint) {
@@ -65,8 +64,7 @@
     }
 }
 
--(void) handleLayoutWithAutoLayouts
-{
+-(void)handleLayoutWithAutoLayouts {
     CGSize intrinsicSize = self.intrinsicContentSize;
     if (self.minHeight) {
         intrinsicSize.height = MAX(intrinsicSize.height, self.minHeight);
@@ -77,13 +75,11 @@
     self.heightConstraint.constant = intrinsicSize.height;
 }
 
--(void) handleLayoutWithoutAutoLayouts
-{
+-(void)handleLayoutWithoutAutoLayouts {
     // TODO:
 }
 
-- (CGSize)intrinsicContentSize
-{
+- (CGSize)intrinsicContentSize {
     CGSize intrinsicContentSize = self.contentSize;
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {

@@ -14,6 +14,9 @@
 // TODO:
 //@property(nonatomic) UIControlContentVerticalAlignment verticalAlignment;
 
+/// You need to call this after setting constraint for the view to work if you do it programmatically
+- (void)findHeightConstraint;
+
 @end
 
 

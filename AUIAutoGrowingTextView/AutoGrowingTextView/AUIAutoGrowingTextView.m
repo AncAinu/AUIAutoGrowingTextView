@@ -72,7 +72,10 @@
     if (self.maxHeight) {
         intrinsicSize.height = MIN(intrinsicSize.height, self.maxHeight);
     }
-    self.heightConstraint.constant = intrinsicSize.height;
+	[UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+		self.heightConstraint.constant = intrinsicSize.height;
+		[self layoutIfNeeded];
+	} completion:nil];
 }
 
 -(void)handleLayoutWithoutAutoLayouts {

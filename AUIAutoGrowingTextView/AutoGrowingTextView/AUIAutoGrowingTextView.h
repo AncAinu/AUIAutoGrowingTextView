@@ -6,8 +6,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class AUIAutoGrowingTextView;
+
+@protocol AUIAutoGrowingTextViewDelegate <UITextViewDelegate>
+
+@optional
+- (void)autoGrowingTextView:(AUIAutoGrowingTextView *)textView willChangeHeight:(CGFloat)newHeight;
+- (void)autoGrowingTextView:(AUIAutoGrowingTextView *)textView didChangeHeight:(CGFloat)newHeight;
+
+@end
+
 @interface AUIAutoGrowingTextView : UITextView
 
+@property (nonatomic, weak) id<AUIAutoGrowingTextViewDelegate>delegate;
 @property (nonatomic) CGFloat maxHeight;
 @property (nonatomic) CGFloat minHeight;
 

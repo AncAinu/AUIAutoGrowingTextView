@@ -72,11 +72,20 @@
     if (self.maxHeight) {
         intrinsicSize.height = MIN(intrinsicSize.height, self.maxHeight);
     }
+    
+    if ([self.delegate respondsToSelector:@selector(autoGrowingTextView:willChangeHeight:)]) {
+        [self.delegate autoGrowingTextView:self willChangeHeight:intrinsicSize.height];
+    }
+    
 	[UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
 		self.heightConstraint.constant = intrinsicSize.height;
 		[self.superview layoutIfNeeded];
 		[self layoutIfNeeded];
-	} completion:nil];
+	} completion:^(BOOL finished) {
+        if ([self.delegate respondsToSelector:@selector(autoGrowingTextView:didChangeHeight:)]) {
+            [self.delegate autoGrowingTextView:self didChangeHeight:intrinsicSize.height];
+        }
+    }];
 }
 
 -(void)handleLayoutWithoutAutoLayouts {
